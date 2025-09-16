@@ -1,21 +1,30 @@
-// variabili costanti
+// VARIABILI COSTANTI
+
 const form = document.getElementById("form-agenda");
 const btnAdd = document.getElementById("add");
 const btnDelete = document.getElementById("remove");
 let arrayName = [];
 let contatore = 0;
+// variabili per la creazione del contatore
+const divRow = document.querySelector(".row");
+const div = document.createElement("div");
+div.classList.add("col-12", "col-md-7");
+const h4 = document.createElement("h4");
 
-// funzioni
+// ----------------------------------------------------------------------------
+
+// FUNZIONI
 
 // generazione dell'alert
 const generateAlert = function () {
   const alert = document.createElement("div");
-  alert.className = "alert alert-warning";
+  alert.className = "alert alert-danger";
   alert.role = "alert";
   alert.innerText = "Nessun nome in memoria, creane uno tu, grazie!";
   form.before(alert);
 };
 
+// rimuovere l'alert
 const removeAlert = function () {
   const alert = document.querySelector(".alert");
   if (alert) {
@@ -28,9 +37,10 @@ const addToLocal = (array) => {
   localStorage.setItem("names-memory", JSON.stringify(array));
 };
 
-// mostrare il nome salvato
+// mostrare il nome salvato creando gli h2
 const showName = (value, index) => {
   const h2 = document.createElement("h2");
+  h2.classList.add("text-capitalize");
   h2.setAttribute("data-index", index);
   h2.innerText = value;
   form.before(h2);
@@ -74,11 +84,8 @@ btnDelete.addEventListener("click", () => {
 });
 
 // mostra contatore
-const divRow = document.querySelector(".row");
-const div = document.createElement("div");
-const h4 = document.createElement("h4");
 const showContatore = (count) => {
-  div.classList.add("w-100", "bg-warning-subtle", "border", "rounded-5", "text-center", "my-5", "p-5");
+  div.classList.add("bg-dark-subtle", "border", "rounded-5", "text-center", "my-5", "mx-auto", "p-5");
   h4.classList.add("display-3");
   h4.innerText = count;
   div.appendChild(h4);
@@ -92,6 +99,7 @@ const timer = setInterval(() => {
   showContatore(sessionStorage.getItem("count"));
 }, 1000);
 
+// al caricamento della pagina portare il valore dell'array simile al localestorage e il counter simile al sessiostorage
 window.addEventListener("DOMContentLoaded", () => {
   const hasNames = localStorage.getItem("names-memory");
   if (hasNames) {
