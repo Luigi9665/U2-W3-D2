@@ -10,6 +10,7 @@
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
   </head>
   <body
     style="
@@ -25,6 +26,7 @@
         <div class="col-12 col-md-7">
           <div class="bg-dark-subtle border rounded-5 my-5 p-5">
             <!-- create h2 -->
+            <div id="containerH2"></div>
             <form id="form-agenda">
               <div class="mb-3">
                 <label for="name" class="form-label">Nome</label>
@@ -32,6 +34,7 @@
               </div>
               <button id="add" type="submit" class="btn btn-success">Aggiungi nome</button>
               <button id="remove" type="button" class="btn btn-danger">Cancella nomi</button>
+              <!-- <button id="removeAll" type="button" class="btn btn-danger fw-bold text-black">Cancella tutti</button> -->
             </form>
           </div>
         </div>

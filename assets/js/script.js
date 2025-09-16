@@ -3,6 +3,8 @@
 const form = document.getElementById("form-agenda");
 const btnAdd = document.getElementById("add");
 const btnDelete = document.getElementById("remove");
+const btnAll = document.getElementById("removeAll");
+const divH2 = document.getElementById("containerH2");
 let arrayName = [];
 let contatore = 0;
 // variabili per la creazione del contatore
@@ -21,7 +23,7 @@ const generateAlert = function () {
   alert.className = "alert alert-danger";
   alert.role = "alert";
   alert.innerText = "Nessun nome in memoria, creane uno tu, grazie!";
-  form.before(alert);
+  divH2.appendChild(alert);
 };
 
 // rimuovere l'alert
@@ -40,16 +42,21 @@ const addToLocal = (array) => {
 // mostrare il nome salvato creando gli h2
 const showName = (value, index) => {
   const h2 = document.createElement("h2");
-  h2.classList.add("text-capitalize");
+  h2.classList.add("text-capitalize", "user-select-none");
+  h2.style.cursor = "pointer";
   h2.setAttribute("data-index", index);
   h2.innerText = value;
-  form.before(h2);
+  divH2.appendChild(h2);
 };
 
 // cancellare il nome
 const deleteName = (index) => {
   const h2 = document.querySelector(`h2[data-index="${index}"]`);
-  h2.remove();
+  if (h2) {
+    h2.remove();
+  } else {
+    return;
+  }
 };
 
 // submit del form con acquisizione del nome
@@ -79,9 +86,33 @@ btnDelete.addEventListener("click", () => {
   addToLocal(arrayName);
   if (arrayName.length === 0) {
     localStorage.removeItem("names-memory");
-    generateAlert();
+    const alert = document.querySelector(".alert");
+    if (alert) {
+      return;
+    } else {
+      generateAlert();
+    }
   }
 });
+// bottone per cancellare il tutto
+// btnAll.addEventListener("click", () => {
+//   for (let i = 0; i < arrayName.length; i++) {
+//     arrayName.splice(0, 1);
+//   }
+//   arrayName.splice(0, 1);
+
+//   console.log(arrayName);
+//   addToLocal(arrayName);
+//   if (arrayName.length === 0) {
+//     localStorage.removeItem("names-memory");
+//     const alert = document.querySelector(".alert");
+//     if (alert) {
+//       return;
+//     } else {
+//       generateAlert();
+//     }
+//   }
+// });
 
 // mostra contatore
 const showContatore = (count) => {
@@ -116,5 +147,22 @@ window.addEventListener("DOMContentLoaded", () => {
   if (hasCount > 0) {
     contatore = hasCount;
     showContatore(contatore);
+  }
+});
+
+// funzione che prepara le icone dentro l'h2
+const insertIcon = (container) => {};
+
+// evento sul container
+divH2.addEventListener("click", (e) => {
+  const target = e.target;
+  const index = target.dataset.index;
+  console.log(index);
+  target.remove();
+  arrayName.splice(index, 1);
+  addToLocal(arrayName);
+  if (arrayName.length === 0) {
+    localStorage.removeItem("names-memory");
+    generateAlert();
   }
 });
