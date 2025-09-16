@@ -62,10 +62,10 @@ const deleteName = (index) => {
 // submit del form con acquisizione del nome
 btnAdd.addEventListener("click", (e) => {
   e.preventDefault();
-  const inputEl = document.getElementById("name");
-  const input = inputEl.value.trim();
+  const inputName = document.getElementById("name");
+  const input = inputName.value.trim();
   if (!input) {
-    inputEl.reportValidity();
+    inputName.reportValidity();
     return;
   }
   arrayName.push(input);
